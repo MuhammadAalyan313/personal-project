@@ -19,24 +19,40 @@
                     @csrf
                         <div class="mb-3">
                             <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username">
+                            <input type="text" class="form-control" value="{{old('username')}}" id="username" name="username" placeholder="Enter your username">
+                            @error('username')
+                                <div class="alert alert-danger">{{$message}}</div>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email">
+                            <input type="email" class="form-control" value="{{old('email')}}" id="email" name="email" placeholder="Enter your email">
+                            @error('email')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
                             <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
+                            @error('password')
+                            <div class="alert alert-danger">{{$message}}</div>
+                        @enderror
                         </div>
                         <div class="mb-3">
                             <label for="confirm-password" class="form-label">Confirm Password</label>
                             <input type="password" class="form-control" id="confirm-password" name="confirmPassword" placeholder="Confirm your password">
+                        @error('confirmPassword')
+                            <div class="alert alert-danger">{{$message}}</div>
+                        @enderror
                         </div>
                         <div class="mb-3 form-check">
                             <input type="checkbox" class="form-check-input" id="terms">
                             <label class="form-check-label" for="terms">I agree to the terms and conditions</label>
                         </div>
+                        <div class="d-flex justify-content-center ">
+                        <div class="mr-2"><p>Already Registered? </p></div>
+                        <div class="div"><a href="{{route('login')}}">Login</a></div>
+                    </div>
                         <button type="submit" class="btn btn-primary w-100">Register</button>
                     </form>
                 </div>

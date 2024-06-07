@@ -34,7 +34,11 @@
                             <input type="checkbox" class="form-check-input" id="terms">
                             <label class="form-check-label" for="terms">I agree to the terms and conditions</label>
                         </div>
-                        <button type="submit" class="btn btn-primary w-100">Register</button>
+                        <div class="d-flex justify-content-center ">
+                        <div class="mr-2"><p>Didn't Register? </p></div>
+                        <div class="div"><a href="{{route('registration')}}">Register</a></div>
+                    </div>
+                        <button type="submit" class="btn btn-primary w-100">Login</button>
                     </form>
                 </div>
             </div>
