@@ -18,8 +18,8 @@ class UserMiddleware
     public function handle(Request $request, Closure $next)
     {
         if(Auth::check()){
-            $role = Auth::user()->role;
-            if($role != 0){
+            $role = Auth::user()->role_id;
+            if($role != 1){
                 return redirect()->back()->with('message', 'Access denied for this role');
             }
         }

@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\hash;
 
-
 class AuthController extends Controller
 {
     public function Registration()
@@ -34,6 +33,7 @@ class AuthController extends Controller
             'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role_id' => 1,
         ]);
         return view('Admin.login');
     }
@@ -48,13 +48,12 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
         if (Auth::attempt($request->only('email', 'password'))) {
-            $role = Auth::user()->role;
-            if ($role == 1) {
-
+            $role = Auth::user()->role_id;
+            if ($role == 2) {
                 return redirect('admin/dashboard')->with('message');
-            } elseif ($role == 0) {
+            } elseif ($role == 1) {
                 return redirect('user/dashboard')->with('message');
-            } elseif ($role == 2) {
+            } elseif ($role == 3) {
                 return redirect('staff/dashboard')->with('message');
 
             }
@@ -65,6 +64,8 @@ class AuthController extends Controller
 
     public function dashboard()
     {
+        session()->flash('message', 'Logged in Successfully!');
+
         return view('Admin.index');
     }
     public function logout(Request $request)
@@ -76,6 +77,8 @@ class AuthController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/login')->with('message', 'You have been logged out successfully');
+        session()->flash('message', 'You have been logged out successfully.');
+
+        return redirect('/login');
     }
 }

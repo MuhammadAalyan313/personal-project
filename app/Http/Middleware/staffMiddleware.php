@@ -18,8 +18,8 @@ class staffMiddleware
     public function handle(Request $request, Closure $next)
     {
         if(Auth::check()){
-            $role = Auth::user()->role;
-            if($role != 2){
+            $role = Auth::user()->role_id;
+            if($role != 3){
                 return redirect()->back()->with('message', 'Access denied for this role');
             }
         }
