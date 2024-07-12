@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    <title>Dashboard | Login</title>
+    <title>Change | Password</title>
 </head>
 <body>
 <div class="container mt-5">
@@ -23,23 +23,22 @@
                     <h4>User | Login</h4>
                 </div>
                 <div class="card-body">
-                    <form action="{{route('login')}}" method="POST">
+                    <form action="{{route('password.change')}}" method="POST">
                     @csrf
                         <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" value="{{old('email')}}" name="email" placeholder="Enter your email">
-                            @error('email')
-                                <div class="alert alert-danger">{{$message}}</div>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
                             @error('password')
                                 <div class="alert alert-danger">{{$message}}</div>
                             @enderror
                         </div>
-                        <div class="text-right"><a href="{{route('forgot.password')}}">Forgot Password?</a></div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" id="password" name="confirmPassword" placeholder="Confirm password">
+                            @error('password')
+                                <div class="alert alert-danger">{{$message}}</div>
+                            @enderror
+                        </div>
                         <div class="mb-3 form-check">
                             <input type="checkbox" class="form-check-input" id="terms">
                             <label class="form-check-label" for="terms">I agree to the terms and conditions</label>

@@ -8,6 +8,9 @@ use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+
 
 class AuthController extends Controller
 {
@@ -59,11 +62,20 @@ class AuthController extends Controller
             }
 
         }
-        return redirect()->back()->with('message', 'Incorrect Email or Password');
+        return redirect()->back()->with('message', 'Incorrect Email or Password')->withInput();
     }
 
     public function dashboard()
     {
+        $role = Auth::user()->role_id;
+        if($role == 1){
+            $title = 'User | Dashboard';
+            return view('User.dashboard', compact('title'));
+        }
+        elseif($role == 3){
+            $title = 'Staff | Dashboard';
+            return view('Staff.dashboard', compact('title'));
+        }
         session()->flash('message', 'Logged in Successfully!');
 
         return view('Admin.index');
@@ -80,5 +92,43 @@ class AuthController extends Controller
         session()->flash('message', 'You have been logged out successfully.');
 
         return redirect('/login');
+    }
+    public function profile(Request $request){
+        return view('profile');
+    }
+    public function changePassword(Request $request){
+
+        $validator = Validator::make($request->all(), [
+
+            'password' => 'required|min:6',
+            'confirmPassword' => 'required|same:password',
+        ]);
+        
+        if ($validator->fails()) {
+            return redirect()->back()->with('message', 'Oops, Validator Failed!.....');
+        }
+        
+        $user = Auth::user();
+        if (Hash::check($request->password, $user->password)) {
+            return redirect()->back()->with('message', 'New password & Current Password are same...');
+        } else {
+            $user->password = bcrypt($request->confirmPassword);
+            $user->save();
+            return redirect()->route('logout')->with('message', 'Password Changed Successfully');
+        }
+        
+        
+    }
+    public function forgotPassword(){
+        return view('forgot-password');
+    }
+    public function resetPassword(Request $request){
+        $request->validate(['email' => 'required']);
+        $email = $request->email;
+        $user = User::where('email', $email)->first();
+        if(!$user){
+            return redirect()->back()->with('message', 'Email does not exist');
+        }
+        $token = str::random(8);
     }
 }
