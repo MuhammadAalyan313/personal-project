@@ -62,36 +62,41 @@ class AuthController extends Controller
             }
 
         }
-        return redirect()->back()->with('message', 'Incorrect Email or Password')->withInput();
+        return redirect()->back()->with([
+            'message' => 'Incorrect Email or Password',
+            'alert-type' => 'error',
+            'timeOut' => 3000,
+        ]);
     }
 
     public function dashboard()
     {
         $role = Auth::user()->role_id;
-        if($role == 1){
+        if($role == 8){
             $title = 'User | Dashboard';
             return view('User.dashboard', compact('title'));
         }
-        elseif($role == 3){
+        elseif($role == 4){
             $title = 'Staff | Dashboard';
             return view('Staff.dashboard', compact('title'));
         }
-        session()->flash('message', 'Logged in Successfully!');
-
-        return view('Admin.index');
+        elseif($role == 9){
+            $title = 'Admin | Dashboard';
+            return view('Admin.dashboard', compact('title'));
+        }
+        $title = 'Inedex | Page';
+        return view('Admin.index', compact('title'));
     }
     public function logout(Request $request)
     {
 
         Auth::logout();
-
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
-
-        session()->flash('message', 'You have been logged out successfully.');
-
-        return redirect('/login');
+        return redirect('/login')->with([
+            'message' => 'You have logged out successully!',
+            'error-type' => 'danger',
+        ]);
     }
     public function profile(Request $request){
         return view('profile');
@@ -103,11 +108,11 @@ class AuthController extends Controller
             'password' => 'required|min:6',
             'confirmPassword' => 'required|same:password',
         ]);
-        
+
         if ($validator->fails()) {
             return redirect()->back()->with('message', 'Oops, Validator Failed!.....');
         }
-        
+
         $user = Auth::user();
         if (Hash::check($request->password, $user->password)) {
             return redirect()->back()->with('message', 'New password & Current Password are same...');
@@ -116,8 +121,8 @@ class AuthController extends Controller
             $user->save();
             return redirect()->route('logout')->with('message', 'Password Changed Successfully');
         }
-        
-        
+
+
     }
     public function forgotPassword(){
         return view('forgot-password');
