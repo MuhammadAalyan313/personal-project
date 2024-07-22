@@ -14,13 +14,17 @@
             <div class="card">
             @if(Session::has('message'))
         <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                toastr.success("{{ Session::get('message') }}");
+            document.addEventListener('DOMContentLoaded', function (){
+                toastr.options = {
+                    'timeOut' : "{{ Session::get('timeOut')}}",
+                    'closeButton' : true,
+                }
+                toastr["{{ Session::get('alert-type')}}"]("{{ Session::get('message')}}");
             });
         </script>
     @endif
                 <div class="card-header bg-primary text-white text-center">
-                    <h4>User | Login</h4>
+                    <h4>Change Password</h4>
                 </div>
                 <div class="card-body">
                     <form action="{{route('password.change')}}" method="POST">

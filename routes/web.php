@@ -18,13 +18,17 @@ use App\Http\Controllers\Admin\AuthController as Auth;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('new-password', [Auth::class, 'newPassword'])->name('new.password');
+Route::post('new-password', [Auth::class, 'saveNewPassword'])->name('save.new.password');
+// Route::get('verify-token', [Auth::class, 'verifyTokenOnly'])->name('verify.token');
+Route::post('verify-token', [Auth::class, 'verifyTokenOnly'])->name('verify.token');
 Route::get('registration', [Auth::class, 'Registration']);
 Route::post('registration', [Auth::class, 'Registered'])->name('registration');
 Route::get('login', [Auth::class, 'Login']);
 Route::post('login', [Auth::class, 'LoggedIn'])->name('login');
 Route::get('logout', [Auth::class, 'logout'])->name('logout');
 Route::get('forgot-password', [Auth::class, 'forgotPassword'])->name('forgot.password');
-Route::post('reset-password', [Auth::class, 'resetPassword'])->name('reset.password');
+Route::post('reset-password', [Auth::class, 'generateToken'])->name('reset.password');
 
 Route::middleware(['auth', 'custom'])->group(function(){
     Route::get('admin/dashboard', [Auth::class, 'dashboard'])->name('admin.dashboard');

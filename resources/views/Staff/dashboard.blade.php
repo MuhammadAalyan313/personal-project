@@ -5,10 +5,14 @@
 <body id="page-top">
     @if(Session::has('message'))
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        toastr.success("{{ Session::get('message') }}");
-    });
-    </script>
+            document.addEventListener('DOMContentLoaded', function () {
+                toastr.options = {
+                    "timeOut" : "{{ Session::get('timeOut') }}",
+                    'closeButton' : true,
+                }
+            toastr["{{ Session::get('alert-type') }}"]("{{ Session::get('message') }}");
+            });
+        </script>
     @endif
 
     <!-- Page Wrapper -->

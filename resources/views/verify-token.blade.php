@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    <title>Dashboard | Login</title>
+    <title>Change | Password</title>
 </head>
 <body>
 <div class="container mt-5">
@@ -13,7 +13,7 @@
         <div class="col-md-6">
             <div class="card">
             @if(Session::has('message'))
-            <script>
+        <script>
             document.addEventListener('DOMContentLoaded', function (){
                 toastr.options = {
                     'timeOut' : "{{ Session::get('timeOut')}}",
@@ -24,19 +24,20 @@
         </script>
     @endif
                 <div class="card-header bg-primary text-white text-center">
-                    <h4>Forgot Password</h4>
+                    <h4>Enter Generated Token</h4>
                 </div>
                 <div class="card-body">
-                    <form action="{{route('reset.password')}}" method="POST">
+                    <form action="{{route('verify.token')}}" method="POST">
                     @csrf
                         <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" value="{{old('email')}}" name="email" placeholder="Enter your email">
-                            @error('email')
+                            <label for="password" class="form-label">Token</label>
+                            <input type="text" class="form-control" id="token" value="{{$token}}" name="token" placeholder="Enter Token">
+                            @error('password')
                                 <div class="alert alert-danger">{{$message}}</div>
                             @enderror
                         </div>
-                        <button type="submit" class="btn btn-primary w-100">Generate Reset Token</button>
+                       
+                        <button type="submit" class="btn btn-primary w-100">Verify</button>
                     </form>
                 </div>
             </div>
