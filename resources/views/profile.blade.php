@@ -43,15 +43,7 @@
                                 <div class="alert alert-danger">{{$message}}</div>
                             @enderror
                         </div>
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="terms">
-                            <label class="form-check-label" for="terms">I agree to the terms and conditions</label>
-                        </div>
-                        <div class="d-flex justify-content-center ">
-                        <div class="mr-2"><p>Didn't Register? </p></div>
-                        <div class="div"><a href="{{route('registration')}}">Register</a></div>
-                    </div>
-                        <button type="submit" class="btn btn-primary w-100">Login</button>
+                        <button type="submit" class="btn btn-primary w-100">Change</button>
                     </form>
                 </div>
             </div>

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\AuthController as Auth;
+use App\Http\Controllers\LeadController as Lead;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,4 +43,6 @@ Route::middleware(['auth', 'staff'])->group(function(){
 Route::middleware(['auth'])->group(function(){
     Route::get('profile', [Auth::class, 'profile'])->name('profile');
     Route::post('change-password', [Auth::class, 'changePassword'])->name('password.change');
+    Route::get('lead', [Lead::class, 'index'])->name('lead.index');
+    Route::post('create-lead', [Lead::class, 'create'])->name('create.lead');
 });
