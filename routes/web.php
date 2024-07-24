@@ -45,4 +45,7 @@ Route::middleware(['auth'])->group(function(){
     Route::post('change-password', [Auth::class, 'changePassword'])->name('password.change');
     Route::get('lead', [Lead::class, 'index'])->name('lead.index');
     Route::post('create-lead', [Lead::class, 'create'])->name('create.lead');
+    Route::get('show-leads', [Lead::class, 'show'])->name('show.leads');
+    Route::get('edit-lead/{id}', [Lead::class, 'edit'])->name('edit.lead');
+    Route::post('update-lead/{id}', [Lead::class, 'update'])->name('update.lead');
 });

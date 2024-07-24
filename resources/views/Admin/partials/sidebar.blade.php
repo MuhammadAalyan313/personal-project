@@ -37,7 +37,7 @@
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Leads:</h6>
             <a class="collapse-item" href="{{ route('lead.index')}}">Add Leads</a>
-            <a class="collapse-item" href="cards.html">Show Leads</a>
+            <a class="collapse-item" href="{{ route('show.leads') }}">Show Leads</a>
         </div>
     </div>
 </li>

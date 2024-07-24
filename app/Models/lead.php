@@ -23,6 +23,10 @@ class lead extends Model
         'assigned_to',
     ];
 
+    public function getAssignedUserAttribute(){
+        return User::where('id', $this->assigned_to)->first();
+        // 
+    }
     public function user(){
         return $this->belongsTo(User::class, 'user_id');
     }
