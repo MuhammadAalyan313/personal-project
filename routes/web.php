@@ -48,4 +48,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('show-leads', [Lead::class, 'show'])->name('show.leads');
     Route::get('edit-lead/{id}', [Lead::class, 'edit'])->name('edit.lead');
     Route::post('update-lead/{id}', [Lead::class, 'update'])->name('update.lead');
+    Route::get('delete-lead/{id}', [Lead::class, 'delete'])->name('delete.lead');
+    Route::get('trashed-lead', [Lead::class, 'trashed'])->name('show.trashed.lead');
+    Route::get('restore-lead/{id}', [Lead::class, 'restore'])->name('restore.lead');
 });

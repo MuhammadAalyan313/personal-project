@@ -3,18 +3,6 @@
 
 
 <body id="page-top">
-    @if(Session::has('message'))
-    <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                toastr.options = {
-                    "timeOut" : "{{ Session::get('timeOut') }}",
-                    'closeButton' : true,
-                }
-            toastr["{{ Session::get('alert-type') }}"]("{{ Session::get('message') }}");
-            });
-        </script>
-    @endif
-
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -34,7 +22,15 @@
 
                 <!-- Begin Page Content -->
                 <div class="container border p-4">
-                <form action="{{route('create.lead')}}" method="post">
+                  <form action="{{route('create.lead')}}" method="post">
+                  @if(Session::has('message'))
+              <div class="alert alert-success alert-dismissible" role="alert">
+                  {{ Session::get('message') }}
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+          @endif
                     @csrf
   <div class="form-row">
     <div class="form-group col-md-6">
