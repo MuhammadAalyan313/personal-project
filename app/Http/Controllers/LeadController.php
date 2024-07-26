@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Lead;
 use App\Models\User;
+use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -50,9 +51,8 @@ class LeadController extends Controller
             'assigned_to' => $request->assigned_to,
         ]);
         return redirect()->back()->with([
-            'message' => 'Data Saved Successfully!',
-            'alert-type' => 'success',
-            'timeOut' => 3000
+            'message' => 'Data Submitted Successfully!',
+            'alert-type' => 'success'
         ]);
     }
     public function show(Request $request)
@@ -89,15 +89,17 @@ class LeadController extends Controller
         $data->save();
         return redirect()->back()->with([
             'message' => 'Data Updated Successfully',
-            'alert-type' => 'error',
-            'timeOut' => '3000',
+            'alert-type' => 'success',
         ]);
     }
     public function delete($id)
     {
         $data = Lead::find($id);
         $data->delete();
-        return redirect()->back()->with('message', 'Data Moved to Trash');
+        return redirect()->back()->with([
+            'message' => 'Data Moved to Trash',
+            'alert-type' => 'success'
+        ]);
     }
     public function trashed()
     {

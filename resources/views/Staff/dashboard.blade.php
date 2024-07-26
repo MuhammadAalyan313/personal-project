@@ -370,3 +370,16 @@
           @include('Admin/partials/footer')
             <!-- End of Footer -->
 
+            @if(Session::has('message'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            Swal.fire({
+                title: 'Message',
+                text: "{{ Session::get('message') }}",
+                icon: "{{ Session::get('alert-type')}}", 
+                confirmButtonText: 'OK',
+                timer: 3000
+            });
+        });
+    </script>
+@endif

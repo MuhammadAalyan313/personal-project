@@ -20,14 +20,6 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                @if(Session::has('message'))
-              <div class="alert alert-success alert-dismissible" role="alert">
-                  {{ Session::get('message') }}
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                  </button>
-              </div>
-          @endif
                 <div class="container-fluid p-4 mt-5 text-center" style="display:flex">
     <div class="table-responsive">
         <table class="table">

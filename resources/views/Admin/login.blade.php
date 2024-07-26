@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <title>Dashboard | Login</title>
 </head>
 <body>
@@ -12,19 +13,8 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
-            @if(Session::has('message'))
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                toastr.options = {
-                    "timeOut" : "{{ Session::get('timeOut') }}",
-                    'closeButton' : true,
-                }
-            toastr["{{ Session::get('alert-type') }}"]("{{ Session::get('message') }}");
-            });
-        </script>
-    @endif
-                <div class="card-header bg-primary text-white text-center">
-                    <h4>User | Login</h4>
+              <div class="card-header bg-primary text-white text-center">
+                    <h4>Login</h4>
                 </div>
                 <div class="card-body">
                     <form action="{{route('login')}}" method="POST">
@@ -59,11 +49,22 @@
         </div>
     </div>
 </div>
-
+@if(Session::has('message'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            Swal.fire({
+                title: 'Message',
+                text: "{{ Session::get('message') }}",
+                icon: "{{ Session::get('alert-type')}}", 
+                confirmButtonText: 'OK',
+                timer: 3000
+            });
+        });
+    </script>
+@endif
 </body>
 </html>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-

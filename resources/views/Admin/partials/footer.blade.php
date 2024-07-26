@@ -20,6 +20,8 @@
 
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!-- Bootstrap core JavaScript-->
     <script src="{{asset('vendor/js/jquery/jquery.min.js')}}"></script>
     <script src="{{asset('vendor/js/js/bootstrap.bundle.min.js')}}"></script>
@@ -35,8 +37,21 @@
 
     <!-- Page level custom scripts -->
     <script src="{{asset('vendor/js/demo/chart-area-demo.js')}}"></script>
-    <script src="{{asset('vendor/js/demo/chart-pie-demo.js')}}"></script>
+    <script src="{{asset('vendor/js/demo/chart-pie-demo.js')}}"></script>   
 
 </body>
 
 </html>
+@if(Session::has('message'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            Swal.fire({
+                title: 'Message',
+                text: "{{ Session::get('message') }}",
+                icon: "{{ Session::get('alert-type')}}", 
+                confirmButtonText: 'OK',
+                timer: 3000
+            });
+        });
+    </script>
+@endif

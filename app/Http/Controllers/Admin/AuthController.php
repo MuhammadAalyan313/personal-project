@@ -64,7 +64,6 @@ class AuthController extends Controller
         return redirect()->back()->with([
             'message' => 'Incorrect Email or Password',
             'alert-type' => 'error',
-            'timeOut' => 3000,
         ]);
     }
     public function dashboard()
@@ -75,16 +74,21 @@ class AuthController extends Controller
             return view('User.dashboard', compact('title'))->with([
                 'message' => 'LoggedIn Successfully!',
                 'alert-type' => 'success',
-                'timeOut' => 3000,
             ]);
         }
         elseif($role == 3){
             $title = 'Staff | Dashboard';
-            return view('Staff.dashboard', compact('title'));
+            return view('Staff.dashboard', compact('title'))->with([
+                'message' => 'LoggedIn Successfully!',
+                'alert-type' => 'success',
+            ]);
         }
         elseif($role == 2){
             $title = 'Admin | Dashboard';
-            return view('Admin.dashboard', compact('title'));
+            return view('Admin.dashboard', compact('title'))->with([
+                'message' => 'LoggedIn Successfully!',
+                'alert-type' => 'success',
+            ]);
         }
         $title = 'Index | Page';
         return view('Admin.index', compact('title'));
@@ -94,9 +98,9 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/login')->with([
+        return redirect()->route('login')->with([
             'message' => 'You have logged out Successfully!',
-            'error-type' => 'danger',
+            'alert-type' => 'success',
         ]);
     }
     public function profile(Request $request){
@@ -111,19 +115,20 @@ class AuthController extends Controller
             return redirect()->back()->with([
                 'message' => 'Oops, Validator Failed!.....',
                 'alert-type' => 'success',
-                'timeOut' => 3000,
             ]);
         }
         $user = Auth::user();
         if (Hash::check($request->password, $user->password)) {
-            return redirect()->back()->with('message', 'New password & Current Password are same...');
+            return redirect()->back()->with([
+                'message' => 'New password & Current Password are same...',
+                'alert-type' => 'warning',
+            ]);
         } else {
             $user->password = bcrypt($request->confirmPassword);
             $user->save();
             return redirect()->route('logout')->with([
                 'message' => 'Password Changed Successfully',
                 'alert-type' => 'success',
-                'timeOut' => 3000,
             ]);
         }
     }
@@ -138,7 +143,6 @@ class AuthController extends Controller
             return redirect()->back()->with([
                 'message' => 'Email does not exist',
                 'alert-type' => 'error',
-                'timeOut' => 3000,
             ]);
         }
         $token = str::random(8);
@@ -174,7 +178,6 @@ class AuthController extends Controller
             return redirect()->back()->with([
                 'message' => 'Email not Found!',
                 'alert-type' => 'error',
-                'timeOut' => 3000,
             ]);
         }
         $user->password = bcrypt($request->confirmPassword);
@@ -183,7 +186,6 @@ class AuthController extends Controller
         return redirect()->route('login')->with([
             'message' => 'New password set successfully!',
             'alert-type' => 'success',
-            'timeOut' => 3000,
         ]);
     }
 }

@@ -1,11 +1,26 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
 <!-- Sidebar - Brand -->
+@php
+    $role = Auth::user()->role_id;
+    @endphp
+    @if($role == 3)
+<a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('staff.dashboard')}}">
+    @elseif($role == 2)
+<a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('admin.dashboard')}}">
+    @elseif($role == 1)
 <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('user.dashboard')}}">
-    <div class="sidebar-brand-icon rotate-n-15">
+    @endif    
+<div class="sidebar-brand-icon rotate-n-15">
         <i class="fas fa-laugh-wink"></i>
     </div>
-    <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+    @if($role == 2)
+    <div class="sidebar-brand-text mx-3">Admin</div>
+    @elseif($role == 3)
+    <div class="sidebar-brand-text mx-3">Staff</div>
+    @elseif($role == 1)
+    <div class="sidebar-brand-text mx-3">User</div>
+    @endif
 </a>
 
 <!-- Divider -->
@@ -13,9 +28,12 @@
 
 <!-- Nav Item - Dashboard -->
 <li class="nav-item active">
-    <a class="nav-link" href="{{route('user.dashboard')}}">
+    @if($role == 3)
+    <a class="nav-link" href="{{route('staff.dashboard')}}">
         <i class="fas fa-fw fa-tachometer-alt"></i>
-        <span>Dashboard</span></a>
+    <span>Dashboard</span></a>
+    @endif
+    
 </li>
 
 <!-- Divider -->
