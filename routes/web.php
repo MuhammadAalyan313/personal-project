@@ -42,6 +42,9 @@ Route::middleware(['auth', 'staff'])->group(function(){
 });
 Route::middleware(['auth'])->group(function(){
     Route::get('profile', [Auth::class, 'profile'])->name('profile');
+    Route::get('edit-profile/{id}', [Auth::class, 'editProfile'])->name('edit.profile');
+    Route::post('update-profile/{id}', [Auth::class, 'updateProfile'])->name('update.profile');
+    Route::post('update-photo/{id}', [Auth::class, 'updatePhoto'])->name('update.photo');
     Route::post('change-password', [Auth::class, 'changePassword'])->name('password.change');
     Route::get('lead', [Lead::class, 'index'])->name('lead.index');
     Route::post('create-lead', [Lead::class, 'create'])->name('create.lead');

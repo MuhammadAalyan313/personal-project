@@ -104,7 +104,46 @@ class AuthController extends Controller
         ]);
     }
     public function profile(Request $request){
-        return view('profile');
+        $data = Auth::user();
+        $title = 'Profile | Page';
+        return view('profile2', compact('title', 'data'));
+    }
+    public function editProfile($id){
+        $data = User::find($id);
+        $title = 'Edit | Profile';
+        return view('edit-profile', compact('data', 'title'));
+    }
+ 
+    public function updateProfile(Request $request, $id){
+        $data = User::find($id);
+        $data->username = $request->username;
+        $data->email = $request->email;
+        $data->phone = $request->phone;
+        $data->address = $request->address;
+        $data->update();
+        return redirect()->back()->with([
+            'message' => 'Data Updated Successfully',
+            'alert-type' => 'success',
+        ]);
+
+      
+    }
+    public function updatePhoto(Request $request, $id){
+        $data = User::find($id);
+        $photo = $request->file('photo');
+        if($photo){
+        $fileName = time().'_'.$photo->getClientOriginalExtension();
+        $filePath = $photo->move(public_path('img'), $fileName);
+        $data->photo = $fileName;
+        $data->save();
+        return redirect()->back()->with([
+            'message' => "Photo Updated Successfully!",
+            'alert-type' => 'success',
+        ]);
+    }
+    else{
+        return 'No Photo';
+    }
     }
     public function changePassword(Request $request){
         $validator = Validator::make($request->all(), [
