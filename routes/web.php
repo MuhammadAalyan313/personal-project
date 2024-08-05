@@ -21,7 +21,6 @@ Route::get('/', function () {
 });
 Route::get('new-password', [Auth::class, 'newPassword'])->name('new.password');
 Route::post('new-password', [Auth::class, 'saveNewPassword'])->name('save.new.password');
-// Route::get('verify-token', [Auth::class, 'verifyTokenOnly'])->name('verify.token');
 Route::post('verify-token', [Auth::class, 'verifyTokenOnly'])->name('verify.token');
 Route::get('registration', [Auth::class, 'Registration']);
 Route::post('registration', [Auth::class, 'Registered'])->name('registration');

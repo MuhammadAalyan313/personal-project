@@ -15,14 +15,14 @@ class LeadController extends Controller
     {
         $data['users'] = User::get()->all();
         $data['title'] = 'Create | Leads';
-        return view('Leads/create-leads', $data);
+        return view('Staff.Leads/create-leads', $data);
     }
     public function edit($id)
     {
         $lead = Lead::find($id);
         $users = User::all();
         $title = "Edit | Lead";
-        return view('Leads.edit-lead', compact('lead', 'title', 'users'));
+        return view('Staff.Leads.edit-lead', compact('lead', 'title', 'users'));
     }
     public function create(Request $request)
     {
@@ -59,7 +59,7 @@ class LeadController extends Controller
     {
         $data['users'] = Lead::latest()->paginate(6);
         $data['title'] = "Show | Leads";
-        return view('Leads.show-leads', $data);
+        return view('Staff.Leads.show-leads', $data);
     }
     public function update(Request $request, $id)
     {
@@ -105,7 +105,7 @@ class LeadController extends Controller
     {
      $title = "Trashed | Leads";
      $users = Lead::onlyTrashed()->get()->all();
-     return view('Leads.trashed', compact('users', 'title'))->with('message', 'Data Restore Successfully!');
+     return view('Staff.Leads.trashed', compact('users', 'title'))->with('message', 'Data Restore Successfully!');
      
     }
     public function restore($id){

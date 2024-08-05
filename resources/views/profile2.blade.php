@@ -30,18 +30,6 @@
       <div class="col-lg-4">
       <div class="card mb-4">
     <div class="card-body text-center position-relative">
-        <!-- Dropdown menu -->
-        <div class="dropdown position-absolute" style="top: 10px; right: 10px;">
-            <button class="btn btn-link text-dark" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fas fa-ellipsis-v"></i>
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                <li><a class="dropdown-item" href="{{ route('edit.profile', ['id' => $data->id]) }}">Edit Profile</a></li>
-                <li><a class="dropdown-item" href="#">Action 1</a></li>
-                <li><a class="dropdown-item" href="#">Action 2</a></li>
-            </ul>
-        </div>
-
         <!-- Profile image and details -->
         <img src="{{ $data->photo ? asset('img/' . $data->photo) : 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp' }}" 
              alt="avatar" 
@@ -50,9 +38,9 @@
         <h5 class="my-3">{{ $data->username }}</h5>
         <p class="text-muted mb-1">{{ $data->address }}</p>
         <div class="d-flex justify-content-center mb-2">
-            <button type="button" class="btn btn-outline-primary ms-1">
-                <a href="{{ route('edit.profile', ['id' => $data->id]) }}">Edit Profile</a>
-            </button>
+        <a href="{{ route('edit.profile', ['id' => $data->id]) }}">   <button type="button" class="btn btn-outline-primary ms-1">
+               Edit Profile
+            </button></a>
         </div>
     </div>
 </div>
@@ -86,7 +74,20 @@
       </div>
       <div class="col-lg-8">
         <div class="card mb-4">
+          <div class="card-body text-center position-relative">
+                <div class="dropdown position-absolute" style="top: 10px; right: 10px;">
+                  <button class="btn btn-link text-dark" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="fas fa-ellipsis-v"></i>
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                      <li><a class="dropdown-item" href="{{ route('edit.profile', ['id' => $data->id]) }}">Edit Profile</a></li>
+                      <li><a class="dropdown-item" href="#">Action 1</a></li>
+                      <li><a class="dropdown-item" href="#">Action 2</a></li>
+                  </ul>
+              </div>
+              </div>
           <div class="card-body">
+
             <div class="row">
               <div class="col-sm-3">
                 <p class="mb-0">Full Name</p>
