@@ -48,54 +48,71 @@
 
                         <!-- Nav Item - Alerts -->
                         <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
-                            </a>
-                            <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">
-                                    Alerts Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 12, 2019</div>
-                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-donate text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 7, 2019</div>
-                                        $290.29 has been deposited into your account!
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 2, 2019</div>
-                                        Spending Alert: We've noticed unusually high spending for your account.
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                            </div>
-                        </li>
+    <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-bell fa-fw"></i>
+        <!-- Counter - Alerts -->
+        <span class="badge badge-danger badge-counter">{{ auth()->user()->unreadNotifications->count() }}+</span>
+    </a>
+    <!-- Dropdown - Alerts -->
+    <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+        aria-labelledby="alertsDropdown" style="max-height: 300px; overflow-y: auto;">
+        <h6 class="dropdown-header">
+            Alerts Center
+        </h6>
+        @foreach (auth()->user()->notifications as $notification)
+        <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">
+            <div class="d-flex align-items-center">
+                <div class="mr-3">
+                    <div class="icon-circle bg-primary">
+                        <i class="fas fa-file-alt text-white"></i>
+                    </div>
+                </div>
+                <div>
+                    <div class="small text-gray-500">{{ $notification->created_at->format('F j, Y, g:i a') }}</div>
+                    <span class="font-weight-bold">{{ $notification->data['first_name'] }}</span> Assigned you the task
+                </div>
+            </div>
+            <div class="btn-group">
+                <form action="{{ route('lead.accept', $notification->data['id']) }}" method="POST" style="display:inline;">
+                    @csrf
+                    <button type="submit" class="btn btn-success btn-sm">Accept</button>
+                </form>
+                <form action="{{ route('lead.decline', $notification->data['id']) }}" method="POST" style="display:inline;">
+                    @csrf
+                    <button type="submit" class="btn btn-danger btn-sm">Decline</button>
+                </form>
+            </div>
+        </a>
+        @endforeach
+
+        <!-- Example static notifications -->
+        <a class="dropdown-item d-flex align-items-center" href="#">
+            <div class="mr-3">
+                <div class="icon-circle bg-success">
+                    <i class="fas fa-donate text-white"></i>
+                </div>
+            </div>
+            <div>
+                <div class="small text-gray-500">December 7, 2019</div>
+                $290.29 has been deposited into your account!
+            </div>
+        </a>
+        <a class="dropdown-item d-flex align-items-center" href="#">
+            <div class="mr-3">
+                <div class="icon-circle bg-warning">
+                    <i class="fas fa-exclamation-triangle text-white"></i>
+                </div>
+            </div>
+            <div>
+                <div class="small text-gray-500">December 2, 2019</div>
+                Spending Alert: We've noticed unusually high spending for your account.
+            </div>
+        </a>
+        <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+    </div>
+</li>
+
 
                         <!-- Nav Item - Messages -->
                         <li class="nav-item dropdown no-arrow mx-1">

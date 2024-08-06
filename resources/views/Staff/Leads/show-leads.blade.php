@@ -18,7 +18,6 @@
                 <!-- Topbar -->
                 @include('Admin.partials.navbar')
                 <!-- End of Topbar -->
-
                 <!-- Begin Page Content -->
                 <div class="container-fluid p-4 mt-5 text-center" style="display:flex">
                     <div class="table-responsive">
