@@ -19,7 +19,7 @@
                 @include('Admin.partials.navbar')
                 <!-- End of Topbar -->
                 <!-- Begin Page Content -->
-                <div class="container-fluid p-4 mt-5 text-center" style="display:flex">
+                <div class="container-fluid p-4 mt-5 text-center" style="display:flex; word-break: keep-all;">
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
@@ -40,13 +40,13 @@
                             </thead>
                             <tbody>
                                 @foreach ($users as $lead)
-                                <tr>
+                                <tr style="white-space: nowrap">
                                     <td>{{ $lead->first_name }}</td>
                                     <td>{{ $lead->last_name }}</td>
                                     <td>{{ $lead->email }}</td>
                                     <td>{{ $lead->title }}</td>
                                     <td>{{ $lead->company }}</td>
-                                    <td>{{ $lead->phone }}</td>
+                                    <td >{{ $lead->phone }}</td>
                                     <td>{{ $lead->message }}</td>
                                     <td>{{ $lead->address }}</td>
                                     <td>{{ $lead->lead_source }}</td>
