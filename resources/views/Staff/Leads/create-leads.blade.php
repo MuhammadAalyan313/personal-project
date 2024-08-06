@@ -95,6 +95,7 @@
     </div>
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
+  <a href="{{ route('show.leads') }}" class="btn btn-primary">Back</a>
 </form>
 
 
