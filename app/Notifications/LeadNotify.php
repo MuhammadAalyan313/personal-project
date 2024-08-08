@@ -48,6 +48,7 @@ class LeadNotify extends Notification
      */
     public function toArray($notifiable)
     {
+        // dd($notifiable);
         return [
             'id' => $this->lead->id,
             'first_name' => $this->lead->first_name,

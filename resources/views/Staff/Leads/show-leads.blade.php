@@ -19,7 +19,13 @@
                 @include('Admin.partials.navbar')
                 <!-- End of Topbar -->
                 <!-- Begin Page Content -->
-                <div class="container-fluid p-4 mt-5 text-center" style="display:flex; word-break: keep-all;">
+                <div class="container-fluid p-4 mt-5 text-center" style="display: flex; flex-direction: column; align-items: center;">
+                <div class="d-flex justify-content-start mb-2" style="width: 100%;">
+        <a href="{{ route('lead.index') }}" class="btn btn-primary me-2">Add</a>
+        <a href="{{ route('show.trashed.lead') }}" class="btn btn-primary">Show Trashed</a>
+    </div>
+    
+                    
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
@@ -73,7 +79,7 @@
                                                     d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
                                             </svg>
                                         </a>
-                                        <a href="{{ route('show.trashed.lead') }}" class="btn btn-light">
+                                        <!-- <a href="{{ route('show.trashed.lead') }}" class="btn btn-light">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                 fill="currentColor" class="bi bi-bootstrap-reboot" viewBox="0 0 16 16">
                                                 <path
@@ -81,7 +87,7 @@
                                                 <path
                                                     d="M6.641 11.671V8.843h1.57l1.498 2.828h1.314L9.377 8.665c.897-.3 1.427-1.106 1.427-2.1 0-1.37-.943-2.246-2.456-2.246H5.5v7.352zm0-3.75V5.277h1.57c.881 0 1.416.499 1.416 1.32 0 .84-.504 1.324-1.386 1.324z" />
                                             </svg>
-                                        </a>
+                                        </a> -->
                                         <a href=" " class="btn btn-light">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                 fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">

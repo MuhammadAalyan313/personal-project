@@ -60,58 +60,57 @@
         <h6 class="dropdown-header">
             Alerts Center
         </h6>
+
         @foreach (auth()->user()->notifications as $notification)
-        <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">
-            <div class="d-flex align-items-center">
-                <div class="mr-3">
-                    <div class="icon-circle bg-primary">
-                        <i class="fas fa-file-alt text-white"></i>
+            @php
+                $lead = \App\Models\Lead::find($notification->data['id']);
+            @endphp
+
+            @if ($lead)
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                    <div class="d-flex align-items-center">
+                        <div class="mr-3">
+                            <div class="icon-circle bg-primary">
+                                <i class="fas fa-tasks text-white"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="small text-gray-500">{{ $notification->created_at->format('F j, Y, g:i a') }}</div>
+                            @if ($lead->status === 'accepted')
+                                <span class="font-weight-bold">task accept</span>
+                            @else
+                                <span class="font-weight-bold">{{ $notification->data['first_name'] }}</span> Assigned you a task
+                            @endif
+                        </div>
                     </div>
-                </div>
-                <div>
-                    <div class="small text-gray-500">{{ $notification->created_at->format('F j, Y, g:i a') }}</div>
-                    <span class="font-weight-bold">{{ $notification->data['first_name'] }}</span> Assigned you the task
-                </div>
-            </div>
-            <div class="btn-group">
-                <form action="{{ route('lead.accept', $notification->data['id']) }}" method="POST" style="display:inline;">
-                    @csrf
-                    <button type="submit" class="btn btn-success btn-sm">Accept</button>
-                </form>
-                <form action="{{ route('lead.decline', $notification->data['id']) }}" method="POST" style="display:inline;">
-                    @csrf
-                    <button type="submit" class="btn btn-danger btn-sm">Decline</button>
-                </form>
-            </div>
-        </a>
+                    @if ($lead->status === 'pending')
+                        <div class="ml-auto">
+                            <form action="{{ route('lead.accept', $notification->data['id']) }}" method="POST" style="display:inline;">
+                                @csrf
+                                <input type="hidden" name="notification_id" value="{{ $notification->id }}">
+                                <button type="submit" class="btn btn-success btn-sm">Accept</button>
+                            </form>
+                            <form action="{{ route('lead.decline', $notification->data['id']) }}" method="POST" style="display:inline;">
+                                @csrf
+                                <input type="hidden" name="notification_id" value="{{ $notification->id }}">
+                                <button type="submit" class="btn btn-danger btn-sm">Decline</button>
+                            </form>
+                        </div>
+                    @endif
+                </a>
+            @endif
         @endforeach
 
-        <!-- Example static notifications -->
-        <a class="dropdown-item d-flex align-items-center" href="#">
-            <div class="mr-3">
-                <div class="icon-circle bg-success">
-                    <i class="fas fa-donate text-white"></i>
-                </div>
-            </div>
-            <div>
-                <div class="small text-gray-500">December 7, 2019</div>
-                $290.29 has been deposited into your account!
-            </div>
-        </a>
-        <a class="dropdown-item d-flex align-items-center" href="#">
-            <div class="mr-3">
-                <div class="icon-circle bg-warning">
-                    <i class="fas fa-exclamation-triangle text-white"></i>
-                </div>
-            </div>
-            <div>
-                <div class="small text-gray-500">December 2, 2019</div>
-                Spending Alert: We've noticed unusually high spending for your account.
-            </div>
-        </a>
+        @if(auth()->user()->notifications->isEmpty())
+            <a class="dropdown-item text-center small text-gray-500" href="#">No new alerts</a>
+        @endif
+
         <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
     </div>
 </li>
+
+
+
 
 
                         <!-- Nav Item - Messages -->

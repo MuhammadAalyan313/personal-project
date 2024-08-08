@@ -18,6 +18,7 @@ class lead extends Model
         'message',
         'lead_source',
         'lead_status',
+        'status',
         'email',
         'address',
         'user_id',

@@ -53,4 +53,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('delete-lead/{id}', [Lead::class, 'delete'])->name('delete.lead');
     Route::get('trashed-lead', [Lead::class, 'trashed'])->name('show.trashed.lead');
     Route::get('restore-lead/{id}', [Lead::class, 'restore'])->name('restore.lead');
+    Route::post('/leads/{lead}/accept', [Lead::class, 'accept'])->name('leads.accept');
+    Route::post('/leads/{lead}/decline', [Lead::class, 'decline'])->name('leads.decline');
+
 });

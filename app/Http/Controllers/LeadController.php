@@ -8,7 +8,8 @@ use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-
+use App\Observers\acceptOrDeclineObserver;
+use App\Notifications\acceptOrDeclineNotify;
 class LeadController extends Controller
 {
     public function index()
@@ -57,9 +58,10 @@ class LeadController extends Controller
     }
     public function show(Request $request)
     {
-        $data['users'] = Lead::latest()->paginate(6);
-        $data['title'] = "Show | Leads";
-        return view('Staff.Leads.show-leads', $data);
+        $users = Lead::latest()->paginate(6);
+        $title = "Show | Leads";
+        $lead = Lead::all();
+        return view('Staff.Leads.show-leads', compact('users','lead', 'title'));
     }
     public function update(Request $request, $id)
     {
@@ -104,14 +106,26 @@ class LeadController extends Controller
     public function trashed()
     {
      $title = "Trashed | Leads";
-     $users = Lead::onlyTrashed()->get()->all();
-     return view('Staff.Leads.trashed', compact('users', 'title'))->with('message', 'Data Restore Successfully!');
+     $users = Lead::onlyTrashed()->latest()->paginate(6);
+     return view('Staff.Leads.trashed', compact('users', 'title'))->with([
+        'message' => 'Data Restored Successfully!',
+        'alert-type' => 'success',
+     ]);
      
     }
     public function restore($id){
         $data = Lead::withTrashed()->find($id);
         $data->restore();
-        return redirect()->back();
+        return redirect()->back()->with([
+            'message' => 'Data Restored Successfully!',
+            'alert-type' => 'success',
+         ]);
     }
+    public function accept(Request $request, Lead $lead)
+    {
+        $lead->update(['status' => 'accepted']);
+        return redirect()->back()->with('status', 'Task accepted successfully.');
+    }
+
   
 }
