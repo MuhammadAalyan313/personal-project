@@ -124,8 +124,15 @@ class LeadController extends Controller
     public function accept(Request $request, Lead $lead)
     {
         $lead->update(['status' => 'accepted']);
-        return redirect()->back()->with('status', 'Task accepted successfully.');
+        return redirect()->back()->with([
+            'message' => 'Task accepted successfully.',
+            'alert-type' => 'success',
+        ]);
     }
-
-  
+    public function showAssigner($id){
+        $lead = Lead::where('id', $id)->first();
+        $title = 'Show | Task Detail';
+        $data = auth()->user()->notifications;
+        return view('show-task-detail', compact('lead', 'title','data'));
+    }
 }

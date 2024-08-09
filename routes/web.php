@@ -55,5 +55,6 @@ Route::middleware(['auth'])->group(function(){
     Route::get('restore-lead/{id}', [Lead::class, 'restore'])->name('restore.lead');
     Route::post('/leads/{lead}/accept', [Lead::class, 'accept'])->name('leads.accept');
     Route::post('/leads/{lead}/decline', [Lead::class, 'decline'])->name('leads.decline');
+    Route::get('show-assigner/{id}', [Lead::class, 'showAssigner'])->name('show.assigner');
 
 });

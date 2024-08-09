@@ -67,7 +67,7 @@
             @endphp
 
             @if ($lead)
-                <a class="dropdown-item d-flex align-items-center" href="#">
+                <a class="dropdown-item d-flex align-items-center" href="{{ route('show.assigner', ['id' => $lead->id]) }}">
                     <div class="d-flex align-items-center">
                         <div class="mr-3">
                             <div class="icon-circle bg-primary">
@@ -77,7 +77,7 @@
                         <div>
                             <div class="small text-gray-500">{{ $notification->created_at->format('F j, Y, g:i a') }}</div>
                             @if ($lead->status === 'accepted')
-                                <span class="font-weight-bold">task accept</span>
+                                You Accepted the task of <span class="font-weight-bold">{{ $notification->data['first_name'] }}</span>
                             @else
                                 <span class="font-weight-bold">{{ $notification->data['first_name'] }}</span> Assigned you a task
                             @endif
@@ -85,12 +85,12 @@
                     </div>
                     @if ($lead->status === 'pending')
                         <div class="ml-auto">
-                            <form action="{{ route('lead.accept', $notification->data['id']) }}" method="POST" style="display:inline;">
+                            <form action="{{ route('leads.accept', $notification->data['id']) }}" method="POST" style="display:inline;">
                                 @csrf
                                 <input type="hidden" name="notification_id" value="{{ $notification->id }}">
                                 <button type="submit" class="btn btn-success btn-sm">Accept</button>
                             </form>
-                            <form action="{{ route('lead.decline', $notification->data['id']) }}" method="POST" style="display:inline;">
+                            <form action="{{ route('leads.decline', $notification->data['id']) }}" method="POST" style="display:inline;">
                                 @csrf
                                 <input type="hidden" name="notification_id" value="{{ $notification->id }}">
                                 <button type="submit" class="btn btn-danger btn-sm">Decline</button>
