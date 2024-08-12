@@ -103,6 +103,14 @@ class LeadController extends Controller
             'alert-type' => 'success'
         ]);
     }
+    public function forceDelete($id){
+        $data = Lead::find($id);
+        $data->forceDelete();
+        return redirect()->back()->with([
+            'message' => 'Data Deleted Successfully..!!',
+            'alert-type' => 'error',
+        ]);
+    }
     public function trashed()
     {
      $title = "Trashed | Leads";

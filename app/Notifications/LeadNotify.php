@@ -19,6 +19,7 @@ class LeadNotify extends Notification
      */
     public function __construct($lead)
     {
+        dd($lead);
         $this->lead = $lead;
     }
 

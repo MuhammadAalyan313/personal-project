@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\AuthController as Auth;
 use App\Http\Controllers\LeadController as Lead;
+use App\Http\Controllers\AttendanceController as Attendance;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,10 +52,12 @@ Route::middleware(['auth'])->group(function(){
     Route::get('edit-lead/{id}', [Lead::class, 'edit'])->name('edit.lead');
     Route::post('update-lead/{id}', [Lead::class, 'update'])->name('update.lead');
     Route::get('delete-lead/{id}', [Lead::class, 'delete'])->name('delete.lead');
+    Route::get('force-delete-lead/{id}', [Lead::class, 'forceDelete'])->name('force.delete');
     Route::get('trashed-lead', [Lead::class, 'trashed'])->name('show.trashed.lead');
     Route::get('restore-lead/{id}', [Lead::class, 'restore'])->name('restore.lead');
     Route::post('/leads/{lead}/accept', [Lead::class, 'accept'])->name('leads.accept');
     Route::post('/leads/{lead}/decline', [Lead::class, 'decline'])->name('leads.decline');
     Route::get('show-assigner/{id}', [Lead::class, 'showAssigner'])->name('show.assigner');
+    Route::get('employee-attendance', [Attendance::class, 'showAttendanceRecord'])->name('employee.attendance');
 
 });

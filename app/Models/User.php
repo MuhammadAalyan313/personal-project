@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\attendance;
+
 
 class User extends Authenticatable
 {
@@ -51,5 +53,8 @@ class User extends Authenticatable
     }
     public function assignedLeads(){
         return $this->hasMany(Lead::class, 'assigned_to');
+    }
+    public function attendances(){
+        return $this->hasMany(attendance::class, 'employee');
     }
 }
