@@ -14,6 +14,7 @@ class attendance extends Model
         'check_in',
         'check_out',
         'total_hours',
+        'user_id',
     ];
 
     public function employee(){

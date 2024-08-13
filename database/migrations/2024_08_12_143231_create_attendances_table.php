@@ -14,14 +14,14 @@ return new class extends Migration
     public function up()
     {
         Schema::create('attendances', function (Blueprint $table) {
-            $table->id('employee_id');
-            $table->unsignedBigInteger('id');
+            $table->id();  
+            $table->unsignedBigInteger('user_id');
             $table->timestamp('check_in')->nullable();
             $table->timestamp('check_out')->nullable();
             $table->integer('total_hours')->nullable(); // Total hours in minutes
             $table->timestamps();
 
-            $table->foreign('id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

@@ -20,19 +20,19 @@
 
                 <div class="container border p-4">
                     <!--  -->
-                <h2 class="mb-4">Employee Attendance</h2>
+                    <h2 class="mb-4">Employee Attendance</h2>
                     <div class="table-responsive">
-                    <form action="" method="POST">
-            @csrf
-            <button type="submit" class="btn btn-success">Check In</button>
-        </form>
+                        <form action="{{ route('check.in') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-success">Check In</button>
+                        </form>
+                        <!-- Check-Out Button -->
+                        <form action="{{ route('check.out', ['id' => Auth::user()->id]) }}" method="POST" class="mt-3">
+                            @csrf
 
-        <!-- Check-Out Button -->
-        <form action="" method="POST" class="mt-3">
-            @csrf
-            @method('POST') <!-- Laravel uses POST for form submissions, but this line ensures the form is submitted correctly -->
-            <button type="submit" class="btn btn-danger">Check Out</button>
-        </form>
+                            <button type="submit" class="btn btn-danger">Check Out</button>
+                        </form>
+
 
                     </div>
                     <a href="{{ route('show.leads') }}" class="btn btn-primary mt-3">Back</a>

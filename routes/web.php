@@ -59,5 +59,6 @@ Route::middleware(['auth'])->group(function(){
     Route::post('/leads/{lead}/decline', [Lead::class, 'decline'])->name('leads.decline');
     Route::get('show-assigner/{id}', [Lead::class, 'showAssigner'])->name('show.assigner');
     Route::get('employee-attendance', [Attendance::class, 'showAttendanceRecord'])->name('employee.attendance');
-
+    Route::post('employee-check-in', [Attendance::class, 'checkIn'])->name('check.in');
+    Route::post('employee-check-out/{id}', [Attendance::class, 'checkOut'])->name('check.out');
 });
