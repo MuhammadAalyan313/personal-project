@@ -10,8 +10,9 @@ class AttendanceController extends Controller
 {
     public function showAttendanceRecord(){
         $title = "Employee | Attendance";
-        $attendance = attendance::get()->all();
-        return view('EmployeeAttendance', compact('title', 'attendance'));
+        $user = Auth::user();
+        $attendance = attendance::where('user_id', $user->id)->get();
+        return view('EmployeeAttendance', compact('title', 'attendance', 'user'));
     }
     public function checkIn(Request $request){
         $id = Auth::user()->id;
