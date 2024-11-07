@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\group;
 
 class GroupSeeder extends Seeder
 {
@@ -17,10 +18,10 @@ class GroupSeeder extends Seeder
         \App\Models\group::create([
             'role' => 'User',
             ]);
-                \App\Models\group::create([
+                group::create([
                     'role' => 'Admin',
                 ]);
-        \App\Models\group::create([
+                group::create([
             'role' => 'Staff',
         ]);
     }
